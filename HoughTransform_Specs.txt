@@ -1,0 +1,89 @@
+
+Project 8.2: Hough Transform.
+	     
+
+**************************************
+Language: C++
+
+*************************************
+
+I. Input: argv[1] : a binary image 
+
+II. Outputs: 
+
+	- Use argv[2] to do:
+  
+		- The result of your HoughAry with header information
+
+	- Use argv[3]: 
+ 
+		- Pretty print the HoughAry.
+
+
+*******************************
+III. Data structure:
+*******************************
+  - An ImageProcessing class
+
+	- numRows (int) 
+	- numCols (int)
+	- minVal (int) 
+	- maxVal (int) 
+	- imgAry (int **) // needs to dynamically allocate at run time
+
+	- methods:
+	- constructor(...)
+	- loadImage // load imgAry from input file
+	 - prettyPrint
+
+- An HoughTransform class
+
+	- a xyCoord class
+		- x (int)
+		- y (int)
+	- point (xyCoord)
+	- angleInDegree (int)
+	- angleInRadians (double)
+	- numRows (int) = 180 // rows are used for angles in degree from 0 to 179
+	- numCols (int) // cols are used for distances 
+				// cols = sqrt [(numRows)^2 + (numCols)^2] (convert to int)
+	- minVal (int)
+	- maxVal (int)
+
+	- HoughAry (int **) need to dynamically allocate at run time
+
+	- methods:
+	- constructor(...)
+	- computeDistance
+	- determineHeader
+     
+*******************************
+III. Algorithms 
+*******************************
+  
+step 0: - open input file and output files
+	   - dynamically allocate Hough2DAry and initiallize to zero
+	  
+step 1:  scan imgAry left to right and top to bottom 
+         if pixel (i,j) > 0
+	       point <-- (i, j)
+  
+step 2:  angleInDegree <-- 0
+         angleInRadians <-- angleInDegree / 180.00 * pi 
+	 
+step 3: dist <-- computeDistance (point, angleInRadians) // use the distance formula given in class 
+        HoughAry[angleInDegree][dist]++
+	   angleInDegree ++
+
+step 4: repeat step 3 until angleInDegree > 179
+
+step 5: repeat step 1 to step 4 while input file is not empty
+
+step 6: determineHeader (HoughAry) 
+	   write the header to argv[2]
+	   write HoughAry to argv[2]
+
+step 7: prettyPrint HoughAry to argv[3]
+
+
+
