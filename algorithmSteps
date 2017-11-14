@@ -1,0 +1,23 @@
+step 0: - open input file and output files
+	   - dynamically allocate Hough2DAry and initialize to zero
+	  
+step 1:  scan imgAry left to right and top to bottom 
+         if pixel (i,j) > 0
+	       point <-- (i, j)
+  
+step 2:  angleInDegree <-- 0
+         angleInRadians <-- angleInDegree / 180.00 * pi 
+	 
+step 3: dist <-- computeDistance (point, angleInRadians) // use the distance formula given in class 
+        HoughAry[angleInDegree][dist]++
+	   angleInDegree ++
+
+step 4: repeat step 3 until angleInDegree > 179
+
+step 5: repeat step 1 to step 4 while input file is not empty
+
+step 6: determineHeader (HoughAry) 
+	   write the header to argv[2]
+	   write HoughAry to argv[2]
+
+step 7: prettyPrint HoughAry to argv[3]
